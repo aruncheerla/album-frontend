@@ -1,7 +1,7 @@
 <template>
-    <h1>Add Lesson</h1>
+    <h1>Add Album</h1>
     <h4>{{ message }}</h4>
-    <h4>Tutorial : {{tutorialId}}</h4>
+    <h4>Album : {{tutorialId}}</h4>
     <v-form>
        <v-text-field
             label="Title"
