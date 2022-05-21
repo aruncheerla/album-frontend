@@ -6,9 +6,11 @@
                 :src="logo"
                 max-height="40"
                 max-width="40"
-                contain
-            ></v-img>
-            <v-app-bar-title>My Albums</v-app-bar-title>
+                contain 
+            ><v-btn 
+                    variant="text"
+                    @click="goHome"
+                    ></v-btn></v-img>
             <v-spacer></v-spacer>
             <v-toolbar-items>
               <v-btn 
@@ -28,12 +30,6 @@
                     @click="goArtists"
                     >
                   Artists
-                </v-btn>
-                <v-btn 
-                    variant="text"
-                    @click="goList"
-                    >
-                  List
                 </v-btn>
                 <v-btn 
                     variant="text"
@@ -62,13 +58,13 @@ export default {
   }),
   methods: {
     goHome() {
-      this.$router.push({ name: 'tutorials' });
+      this.$router.push({ name: 'home' });
     },
     goAlbums() {
       this.$router.push({ name: 'tutorials' });
     },
     goArtists() {
-      this.$router.push({ name: 'tutorials' });
+      this.$router.push({ name: 'artists' });
     },
     goAdd() {
       this.$router.push({ name: 'add' });
