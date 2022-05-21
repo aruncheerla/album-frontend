@@ -1,5 +1,5 @@
 <template>
-    <h1>Add Album</h1>
+    <h1>Add Album </h1>
     <h4>{{ message }}</h4>
     <h4>Album : {{tutorialId}}</h4>
     <v-form>

@@ -1,5 +1,5 @@
 <template>
-    <h1>Edit Artist</h1>
+    <h1>Edit Artist </h1>
     <h4>{{ message }}</h4>
     <v-form>
        <v-text-field

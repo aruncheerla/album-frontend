@@ -1,5 +1,5 @@
 <template>
-    <h2>View Album</h2>
+    <h2>View Album </h2>
     <h4>{{ message }}</h4>
     <h3> {{tutorial.title}}</h3>
     <v-btn color="success" @click="goEditTutorial()"
