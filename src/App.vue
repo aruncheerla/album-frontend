@@ -33,6 +33,12 @@
                 </v-btn>
                 <v-btn 
                     variant="text"
+                    @click="goTracks"
+                    >
+                  Tracks
+                </v-btn>
+                <v-btn 
+                    variant="text"
                     @click="goAdd"
                     >
                   Add
@@ -65,6 +71,9 @@ export default {
     },
     goArtists() {
       this.$router.push({ name: 'artists' });
+    },
+    goTracks() {
+      this.$router.push({ name: 'tracks' });
     },
     goAdd() {
       this.$router.push({ name: 'add' });

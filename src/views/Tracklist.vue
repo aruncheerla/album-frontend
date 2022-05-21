@@ -1,6 +1,6 @@
 <template>
 
-    <h1>Album List </h1>
+    <h1>Track List </h1>
     <h4>{{ message }}</h4>
   
       <v-row >
@@ -20,7 +20,7 @@
       <v-row>
         <v-col  cols="9"
               sm="2">
-            <span class="text-h6">Album Title</span>
+            <span class="text-h6">Track Title</span>
         </v-col>
         <v-col  cols="9"
               sm="4">
@@ -28,11 +28,12 @@
         </v-col>
         <v-col  cols="9"
               sm="1">
-            <span class="text-h6"><v-btn variant="text" @click="goEditpage" >
-                  Edit
-                </v-btn></span>
+            <span class="text-h6">Edit</span>
         </v-col>
-        
+        <v-col  cols="9"
+              sm="1">
+            <span class="text-h6">View</span>
+        </v-col>
         <v-col  cols="9"
               sm="1">
             <span class="text-h6">Delete</span>
@@ -62,21 +63,13 @@ export default {
       currentTutorial: null,
       currentIndex: -1,
       title: "",
-      message : "Search, Edit or Delete Albums"
+      message : "Search, Edit or Delete Artists"
     };
   },
   components: {
         TutorialDisplay
     },
   methods: {
-
-    goEditpage() {
-      this.$router.push({ name: 'editLesson' });
-    },
-    goviewpage() {
-      this.$router.push({ name: 'tutorials' });
-    },
-
     goEdit(tutorial) {
       this.$router.push({ name: 'edit', params: { id: tutorial.id } });
     },
@@ -140,16 +133,6 @@ export default {
   }
 };
 </script>
-
 <style>
-
-.text-h6 .v-btn{
-    font-size: 1.25rem !important;
-    font-weight: 500;
-    line-height: 2rem;
-    letter-spacing: 0.0125em !important;
-    font-family: "Roboto", sans-serif !important;
-    text-transform: none !important;
-}
 
 </style>
