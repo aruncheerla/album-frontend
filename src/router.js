@@ -24,13 +24,13 @@ const routes =  [
     props: true
   },
   {
-    path: "/addLesson",
-    name: "addLesson",
+    path: "/addartist",
+    name: "addartist",
     component: () => import("./views/AddLesson.vue"),
     props: true
   },
   {
-    path: "/editLesson",
+    path: "/editalbum",
     name: "editLesson",
     component: () => import("./views/EditLesson.vue"),
     props: true
