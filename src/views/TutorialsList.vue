@@ -28,11 +28,12 @@
         </v-col>
         <v-col  cols="9"
               sm="1">
-            <span class="text-h6"><v-btn variant="text" @click="goEditpage" >
-                  Edit
-                </v-btn></span>
+            <span class="text-h6">Edit</span>
         </v-col>
-        
+        <v-col  cols="9"
+              sm="1">
+            <span class="text-h6">View</span>
+        </v-col>
         <v-col  cols="9"
               sm="1">
             <span class="text-h6">Delete</span>
@@ -70,12 +71,7 @@ export default {
     },
   methods: {
 
-    goEditpage() {
-      this.$router.push({ name: 'editLesson' });
-    },
-    goviewpage() {
-      this.$router.push({ name: 'tutorials' });
-    },
+  
 
     goEdit(tutorial) {
       this.$router.push({ name: 'edit', params: { id: tutorial.id } });

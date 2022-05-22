@@ -28,9 +28,10 @@
         </v-col>
         <v-col  cols="9"
               sm="1">
-            <span class="text-h6">Edit</span>
+            <span class="text-h6">
+                  Edit</span>
         </v-col>
-        <v-col  cols="9"
+<v-col  cols="9"
               sm="1">
             <span class="text-h6">View</span>
         </v-col>
@@ -70,6 +71,9 @@ export default {
         TutorialDisplay
     },
   methods: {
+
+   
+
     goEdit(tutorial) {
       this.$router.push({ name: 'edit', params: { id: tutorial.id } });
     },
@@ -134,5 +138,12 @@ export default {
 };
 </script>
 <style>
-
+.text-h6 .v-btn{
+    font-size: 1.25rem !important;
+    font-weight: 500;
+    line-height: 2rem;
+    letter-spacing: 0.0125em !important;
+    font-family: "Roboto", sans-serif !important;
+    text-transform: none !important;
+}
 </style>
