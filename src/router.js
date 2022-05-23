@@ -19,7 +19,7 @@ const routes =  [
   {
     path: "/tracks",
     name: "tracks",
-    component: () => import("./views/Tracklist.vue")
+    component: () => import("./views/TrackList.vue")
   },
   {
     path: "/edit/:id",

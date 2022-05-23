@@ -33,9 +33,9 @@
                 </v-btn>
                 <v-btn 
                     variant="text"
-                    @click="goList"
+                    @click="goTracks"
                     >
-                  List
+                  Tracks
                 </v-btn>
                 <v-btn 
                     variant="text"
