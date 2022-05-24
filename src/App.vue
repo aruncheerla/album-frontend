@@ -37,12 +37,7 @@
                     >
                   Tracks
                 </v-btn>
-                <v-btn 
-                    variant="text"
-                    @click="goAdd"
-                    >
-                  Add
-                </v-btn>
+                
                 
             </v-toolbar-items>
       </v-app-bar>
@@ -51,8 +46,20 @@
           <router-view />
         </v-container>
       </v-main>  
+
+      <div class="footer">
+           <div class="container">
+             <p>© Copyright 2022 My Albums. All rights reserved</p>
+           </div>   
+      </div>
+
+
     </v-app>
 </template>
+
+
+
+
 
 <script>
 import logo from './assets/oc-logo-white.png'
@@ -86,3 +93,17 @@ export default {
 }
 </script>
 
+
+<style>
+
+.footer{
+      border-top: 1px solid #ccc;
+}
+.footer p{
+  text-align: center;
+    color: #000;
+    font-size: 14px;
+    padding: 7px;
+}
+
+</style>
