@@ -4,8 +4,6 @@
     <h3> {{tutorial.title}}</h3>
     <v-btn color="success" class="view-pg-btn" @click="goEditTutorial()" >Edit</v-btn>
      <v-btn color="success" class="view-pg-btn" @click="goAddLesson(id)" >Add Track</v-btn>
-    
-
 
      <v-row>
         <v-col  cols="8" sm="2">
@@ -21,6 +19,7 @@
             <span class="text-h6">Delete</span>
         </v-col>
       </v-row>
+
       <LessonDisplay
         v-for="lesson in lessons"
         :key="lesson.id"
@@ -29,8 +28,9 @@
         @updateLesson="goEditLesson(lesson)"
     />
 
-   
 </template>
+
+
 <script>
 import TutorialDataService from "../services/TutorialDataService";
 import LessonDataService from "../services/LessonDataService";

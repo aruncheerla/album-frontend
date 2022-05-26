@@ -5,16 +5,11 @@
 
     <v-form>
        <v-text-field label="Album Title" v-model="lesson.title" />
-        <v-text-field
-            label="Description"
-            v-model="lesson.description"
-        />
+        <v-text-field label="Description" v-model="lesson.description" />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveLesson()"
-                    >Save</v-btn
-                >
+                <v-btn color="success" @click="saveLesson()" >Save</v-btn >
             </v-col>
             <v-col col="2">
                 <v-btn color="info" @click="cancel()">Cancel</v-btn>
@@ -22,8 +17,12 @@
             <v-col col="2"> </v-col>
         </v-row>
     </v-form>
+
 </template>
+
+
 <script>
+
 import LessonDataService from "../services/LessonDataService";
 export default {
   name: "edit-lesson",
@@ -71,6 +70,8 @@ export default {
 }
 
 </script>
+
+
 <style>
 
 </style>
