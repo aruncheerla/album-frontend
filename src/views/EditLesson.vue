@@ -4,10 +4,7 @@
     <h4>Album : {{lessonId}}</h4>   
 
     <v-form>
-       <v-text-field
-            label="Album Title"
-            v-model="lesson.title"
-        />
+       <v-text-field label="Album Title" v-model="lesson.title" />
         <v-text-field
             label="Description"
             v-model="lesson.description"
