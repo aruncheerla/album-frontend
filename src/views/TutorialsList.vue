@@ -1,21 +1,33 @@
 <template>
 
     <h1>Album List </h1>
-    <h4>{{ message }}</h4>
+    <h4 class="h4-head">{{ message }}</h4>
   
       <v-row >
-        <v-col  cols="12"
-        sm="2">
+
+        <v-col  cols="12" sm="2">
+          <v-btn color = "success" @click="addAlbum" >
+            Add Album
+          </v-btn>
+        </v-col>
+
+        <v-col  cols="12" sm="2" class="search-btn">
           <v-btn color = "success"
             @click="searchTitle"
           >
             Search
           </v-btn>
         </v-col>
-        <v-col col="12" sm="10">
+       
+
+        <v-col col="12" sm="8">
             <v-text-field density="compact" clearable
               v-model="title"/>
         </v-col> 
+
+        
+        
+
       </v-row>
       <v-row>
         <v-col  cols="9"
@@ -71,7 +83,12 @@ export default {
     },
   methods: {
 
-  
+
+    addAlbum() {
+      this.$router.push({ name: 'addalbum' });
+    },
+
+
 
     goEdit(tutorial) {
       this.$router.push({ name: 'edit', params: { id: tutorial.id } });
@@ -147,5 +164,10 @@ export default {
     font-family: "Roboto", sans-serif !important;
     text-transform: none !important;
 }
-
+.search-btn button{
+  float: right;
+}
+h4.h4-head{
+  margin-bottom: 18px;
+}
 </style>

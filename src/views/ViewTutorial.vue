@@ -5,7 +5,7 @@
     <v-btn color="success" @click="goEditTutorial()"
     >Edit</v-btn>
      <v-btn color="success" @click="goAddLesson(id)"
-    >Add Lesson</v-btn>
+    >Add Track</v-btn>
 
      <v-row>
         <v-col  cols="8"
@@ -49,7 +49,7 @@ export default {
     return {
       tutorial: {},
       lessons : [],
-      message: "Add, Edit or Delete Lessons"
+      message: "Add, Edit or Delete Album"
     };
   },
   methods: {

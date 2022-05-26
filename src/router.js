@@ -28,8 +28,8 @@ const routes =  [
     props: true
   },
   {
-    path: "/addtutorial",
-    name: "add",
+    path: "/addartist",
+    name: "addartist",
     component: () => import("./views/AddTutorial.vue")
   },
   {
@@ -39,8 +39,8 @@ const routes =  [
     props: true
   },
   {
-    path: "/addartist",
-    name: "addartist",
+    path: "/addalbum",
+    name: "addalbum",
     component: () => import("./views/AddLesson.vue"),
     props: true
   },

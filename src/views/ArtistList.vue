@@ -1,18 +1,25 @@
 <template>
 
     <h1>Artist List </h1>
-    <h4>{{ message }}</h4>
+    <h4 class="h4-head">{{ message }}</h4>
   
       <v-row >
+
+        <v-col  cols="12" sm="2">
+          <v-btn color = "success" @click="addArtist" >
+            Add Artist
+          </v-btn>
+        </v-col>
+
         <v-col  cols="12"
-        sm="2">
+        sm="2" class="search-btn">
           <v-btn color = "success"
             @click="searchTitle"
           >
             Search
           </v-btn>
         </v-col>
-        <v-col col="12" sm="10">
+        <v-col col="12" sm="8">
             <v-text-field density="compact" clearable
               v-model="title"/>
         </v-col> 
@@ -72,7 +79,9 @@ export default {
     },
   methods: {
 
-   
+   addArtist() {
+      this.$router.push({ name: 'addartist' });
+    },
 
     goEdit(artist) {
       this.$router.push({ name: 'edit', params: { id: artist.id } });
@@ -145,5 +154,11 @@ export default {
     letter-spacing: 0.0125em !important;
     font-family: "Roboto", sans-serif !important;
     text-transform: none !important;
+}
+.search-btn button{
+  float: right;
+}
+h4.h4-head{
+  margin-bottom: 18px;
 }
 </style>
