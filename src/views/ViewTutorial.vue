@@ -2,28 +2,22 @@
     <h2>View Album </h2>
     <h4>{{ message }}</h4>
     <h3> {{tutorial.title}}</h3>
-    <v-btn color="success" class="view-pg-btn" @click="goEditTutorial()"
-    >Edit</v-btn>
-     <v-btn color="success" class="view-pg-btn" @click="goAddLesson(id)"
-    >Add Track</v-btn>
+    <v-btn color="success" class="view-pg-btn" @click="goEditTutorial()" >Edit</v-btn>
+     <v-btn color="success" class="view-pg-btn" @click="goAddLesson(id)" >Add Track</v-btn>
     
 
 
      <v-row>
-        <v-col  cols="8"
-              sm="2">
+        <v-col  cols="8" sm="2">
             <span class="text-h6">Title</span>
         </v-col>
-        <v-col  cols="8"
-              sm="4">
+        <v-col  cols="8" sm="4">
             <span class="text-h6">Description</span>
         </v-col>
-        <v-col  cols="8"
-              sm="1">
+        <v-col  cols="8" sm="1">
             <span class="text-h6">Edit</span>
         </v-col>
-        <v-col  cols="8"
-              sm="1">
+        <v-col  cols="8" sm="1">
             <span class="text-h6">Delete</span>
         </v-col>
       </v-row>

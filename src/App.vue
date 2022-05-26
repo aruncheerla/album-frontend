@@ -15,8 +15,7 @@
             <v-toolbar-items>
               <v-btn 
                     variant="text"
-                    @click="goHome"
-                    >
+                    @click="goHome" >
                   Home
                 </v-btn>
                 <v-btn 
