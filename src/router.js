@@ -33,6 +33,11 @@ const routes =  [
     component: () => import("./views/AddTutorial.vue")
   },
   {
+    path: "/addtrack",
+    name: "addtrack",
+    component: () => import("./views/AddTrack.vue")
+  },
+  {
     path: "/view",
     name: "view",
     component: () => import("./views/ViewTutorial.vue"),
