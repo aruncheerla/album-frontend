@@ -6,6 +6,8 @@
     >Edit</v-btn>
      <v-btn color="success" class="view-pg-btn" @click="goAddLesson(id)"
     >Add Track</v-btn>
+    
+
 
      <v-row>
         <v-col  cols="8"
@@ -75,7 +77,7 @@ export default {
       this.$router.push({ name: 'editLesson', params: { tutorialId: this.id,lessonId: lesson.id} });
     },
     goAddLesson() {
-      this.$router.push({ name: 'addLesson', params: { tutorialId: this.id } });
+      this.$router.push({ name: 'addtrack', params: { tutorialId: this.id } });
     },
 
     goDeleteLesson(lesson) {
