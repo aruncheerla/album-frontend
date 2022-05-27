@@ -2,29 +2,24 @@
     <h2>View Album </h2>
     <h4>{{ message }}</h4>
     <h3> {{tutorial.title}}</h3>
-    <v-btn color="success" @click="goEditTutorial()"
-    >Edit</v-btn>
-     <v-btn color="success" @click="goAddLesson(id)"
-    >Add Track</v-btn>
+    <v-btn color="success" class="view-pg-btn" @click="goEditTutorial()" >Edit</v-btn>
+     <v-btn color="success" class="view-pg-btn" @click="goAddLesson(id)" >Add Track</v-btn>
 
      <v-row>
-        <v-col  cols="8"
-              sm="2">
+        <v-col  cols="8" sm="2">
             <span class="text-h6">Title</span>
         </v-col>
-        <v-col  cols="8"
-              sm="4">
+        <v-col  cols="8" sm="4">
             <span class="text-h6">Description</span>
         </v-col>
-        <v-col  cols="8"
-              sm="1">
+        <v-col  cols="8" sm="1">
             <span class="text-h6">Edit</span>
         </v-col>
-        <v-col  cols="8"
-              sm="1">
+        <v-col  cols="8" sm="1">
             <span class="text-h6">Delete</span>
         </v-col>
       </v-row>
+
       <LessonDisplay
         v-for="lesson in lessons"
         :key="lesson.id"
@@ -33,8 +28,9 @@
         @updateLesson="goEditLesson(lesson)"
     />
 
-   
 </template>
+
+
 <script>
 import TutorialDataService from "../services/TutorialDataService";
 import LessonDataService from "../services/LessonDataService";
@@ -75,7 +71,7 @@ export default {
       this.$router.push({ name: 'editLesson', params: { tutorialId: this.id,lessonId: lesson.id} });
     },
     goAddLesson() {
-      this.$router.push({ name: 'addLesson', params: { tutorialId: this.id } });
+      this.$router.push({ name: 'addtrack', params: { tutorialId: this.id } });
     },
 
     goDeleteLesson(lesson) {
@@ -98,4 +94,10 @@ export default {
 </script>
 
 <style>
+
+.v-btn.view-pg-btn{
+  margin: 15px 18px 18px 0px;
+}
+
+
 </style>

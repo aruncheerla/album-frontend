@@ -12,17 +12,14 @@
         </v-col>
 
         <v-col  cols="12" sm="2" class="search-btn">
-          <v-btn color = "success"
-            @click="searchTitle"
-          >
+          <v-btn color = "success" @click="searchTitle">
             Search
           </v-btn>
         </v-col>
        
 
         <v-col col="12" sm="8">
-            <v-text-field density="compact" clearable
-              v-model="title"/>
+            <v-text-field density="compact" clearable v-model="title"/>
         </v-col> 
 
         
