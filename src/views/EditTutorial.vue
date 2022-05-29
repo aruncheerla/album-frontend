@@ -4,20 +4,20 @@
     <v-form>
        <v-text-field
             label="Title"
-            v-model="tutorial.title"
+            v-model="artist.title"
         />
         <v-text-field
             label="Description"
-            v-model="tutorial.description"
+            v-model="artist.description"
         />
         <v-text-field
             label="Description"
-            v-model="tutorial.published"
+            v-model="artist.published"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="updateTutorial()"
+                <v-btn color="success" @click="updateArtist()"
                     >Save</v-btn
                 >
             </v-col>
@@ -29,21 +29,21 @@
     </v-form>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import ArtistDataService from "../services/ArtistDataService";
 export default {
-  name: "edit-tutorial",
+  name: "edit-artist",
   props: ['id'],
   data() {
     return {
-      tutorial: {},
+      artist: {},
       message: "Enter data and click save"
     };
   },
   methods: {
-    retrieveTutorial() {
-      TutorialDataService.get(this.id)
+    retrieveArtist() {
+      ArtistDataService.get(this.id)
         .then(response => {
-          this.tutorial= response.data;
+          this.artist= response.data;
         })
         .catch(e => {
           this.message = e.response.data.message;
@@ -51,28 +51,28 @@ export default {
 
     },
 
-    updateTutorial() {
+    updateArtist() {
       var data = {
-        title: this.tutorial.title,
-        description: this.tutorial.description
+        title: this.artist.title,
+        description: this.artist.description
 
       };
-      TutorialDataService.update(this.id,data)
+      ArtistDataService.update(this.id,data)
         .then(response => {
-          this.tutorial.id = response.data.id;
+          this.artist.id = response.data.id;
           console.log("add "+response.data);
-          this.$router.push({ name: 'tutorials' });
+          this.$router.push({ name: 'artists' });
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'tutorials' });
+        this.$router.push({ name: 'artists' });
     }
   },
     mounted() {
-    this.retrieveTutorial();
+    this.retrieveArtist();
   }
 }
 

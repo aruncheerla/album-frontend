@@ -2,9 +2,9 @@ import { createWebHistory, createRouter } from "vue-router";
 const routes =  [
   {
     path: "/albums",
-    alias: "/tutorials",
-    name: "tutorials",
-    component: () => import("./views/TutorialsList.vue")
+    alias: "/artists",
+    name: "artists",
+    component: () => import("./views/ArtistsList.vue")
   },
   {
     path: "/",
@@ -24,13 +24,13 @@ const routes =  [
   {
     path: "/edit/:id",
     name: "edit",
-    component: () => import("./views/EditTutorial.vue"),
+    component: () => import("./views/EditArtist.vue"),
     props: true
   },
   {
     path: "/addartist",
     name: "addartist",
-    component: () => import("./views/AddTutorial.vue")
+    component: () => import("./views/AddArtist.vue")
   },
   {
     path: "/addtrack",
@@ -40,24 +40,24 @@ const routes =  [
   {
     path: "/view",
     name: "view",
-    component: () => import("./views/ViewTutorial.vue"),
+    component: () => import("./views/ViewArtist.vue"),
     props: true
   },
   {
     path: "/addalbum",
     name: "addalbum",
-    component: () => import("./views/AddLesson.vue"),
+    component: () => import("./views/AddAlbum.vue"),
     props: true
   },
   {
     path: "/editalbum",
-    name: "editLesson",
-    component: () => import("./views/EditLesson.vue"),
+    name: "editAlbum",
+    component: () => import("./views/EditAlbum.vue"),
     props: true
   }
 ];
 const router = createRouter({
-  base: process.env.NODE_ENV === 'development' ? '/' : '/tutorial-frontend-1/',
+  base: process.env.NODE_ENV === 'development' ? '/' : '/artist-frontend-1/',
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });

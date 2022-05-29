@@ -48,35 +48,35 @@
             <span class="text-h6">Delete</span>
         </v-col>
       </v-row>
-      <TutorialDisplay
-        v-for="tutorial in tutorials"
-        :key="tutorial.id"
-        :tutorial="tutorial"
-        @deleteTutorial="goDelete(tutorial)"
-        @updateTutorial="goEdit(tutorial)"
-        @viewTutorial="goView(tutorial)"
+      <ArtistDisplay
+        v-for="artist in artists"
+        :key="artist.id"
+        :artist="artist"
+        @deleteArtist="goDelete(artist)"
+        @updateArtist="goEdit(artist)"
+        @viewArtist="goView(artist)"
     />
  
-  <v-btn  @click="removeAllTutorials">
+  <v-btn  @click="removeAllArtists">
     Remove All
   </v-btn>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
-import TutorialDisplay from '@/components/TutorialDisplay.vue';
+import ArtistDataService from "../services/ArtistDataService";
+import ArtistDisplay from '@/components/ArtistDisplay.vue';
 export default {
-  name: "tutorials-list",
+  name: "artists-list",
   data() {
     return {
-      tutorials: [],
-      currentTutorial: null,
+      artists: [],
+      currentArtist: null,
       currentIndex: -1,
       title: "",
       message : "Search, Edit or Delete Albums"
     };
   },
   components: {
-        TutorialDisplay
+        ArtistDisplay
     },
   methods: {
 
@@ -87,26 +87,26 @@ export default {
 
 
 
-    goEdit(tutorial) {
-      this.$router.push({ name: 'edit', params: { id: tutorial.id } });
+    goEdit(artist) {
+      this.$router.push({ name: 'edit', params: { id: artist.id } });
     },
-    goView(tutorial) {
-      this.$router.push({ name: 'view', params: { id: tutorial.id } });
+    goView(artist) {
+      this.$router.push({ name: 'view', params: { id: artist.id } });
     },
-    goDelete(tutorial) {
-      TutorialDataService.delete(tutorial.id)
+    goDelete(artist) {
+      ArtistDataService.delete(artist.id)
         .then( () => {
     
-          this.retrieveTutorials()
+          this.retrieveArtists()
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
-    retrieveTutorials() {
-      TutorialDataService.getAll()
+    retrieveArtists() {
+      ArtistDataService.getAll()
         .then(response => {
-          this.tutorials = response.data;
+          this.artists = response.data;
           
         })
         .catch(e => {
@@ -114,16 +114,16 @@ export default {
         });
     },
     refreshList() {
-      this.retrieveTutorials();
-      this.currentTutorial = null;
+      this.retrieveArtists();
+      this.currentArtist = null;
       this.currentIndex = -1;
     },
-    setActiveTutorial(tutorial, index) {
-      this.currentTutorial = tutorial;
-      this.currentIndex = tutorial ? index : -1;
+    setActiveArtist(artist, index) {
+      this.currentArtist = artist;
+      this.currentIndex = artist ? index : -1;
     },
-    removeAllTutorials() {
-      TutorialDataService.deleteAll()
+    removeAllArtists() {
+      ArtistDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -134,10 +134,10 @@ export default {
     },
     
     searchTitle() {
-      TutorialDataService.findByTitle(this.title)
+      ArtistDataService.findByTitle(this.title)
         .then(response => {
-          this.tutorials = response.data;
-          this.setActiveTutorial(null);
+          this.artists = response.data;
+          this.setActiveArtist(null);
           
         })
         .catch(e => {
@@ -146,7 +146,7 @@ export default {
     }
   },
   mounted() {
-    this.retrieveTutorials();
+    this.retrieveArtists();
   }
 };
 </script>

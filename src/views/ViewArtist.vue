@@ -3,7 +3,7 @@
     <h4>{{ message }}</h4>
     <h3> {{tutorial.title}}</h3>
     <v-btn color="success" class="view-pg-btn" @click="goEditTutorial()" >Edit</v-btn>
-     <v-btn color="success" class="view-pg-btn" @click="goAddLesson(id)" >Add Track</v-btn>
+     <v-btn color="success" class="view-pg-btn" @click="goAddAlbum(id)" >Add Track</v-btn>
 
      <v-row>
         <v-col  cols="8" sm="2">
@@ -20,12 +20,12 @@
         </v-col>
       </v-row>
 
-      <LessonDisplay
-        v-for="lesson in lessons"
-        :key="lesson.id"
-        :lesson="lesson"
-        @deleteLesson="goDeleteLesson(lesson)"
-        @updateLesson="goEditLesson(lesson)"
+      <AlbumDisplay
+        v-for="album in albums"
+        :key="album.id"
+        :album="album"
+        @deleteAlbum="goDeleteAlbum(album)"
+        @updateAlbum="goEditAlbum(album)"
     />
 
 </template>
@@ -33,29 +33,29 @@
 
 <script>
 import TutorialDataService from "../services/TutorialDataService";
-import LessonDataService from "../services/LessonDataService";
-import LessonDisplay from '@/components/LessonDisplay.vue';
+import AlbumDataService from "../services/AlbumDataService";
+import AlbumDisplay from '@/components/AlbumDisplay.vue';
 export default {
   name: "view-tutorial",
   props: ['id'],
     components: {
-        LessonDisplay
+        AlbumDisplay
     },
   data() {
     return {
       tutorial: {},
-      lessons : [],
+      albums : [],
       message: "Add, Edit or Delete Album"
     };
   },
   methods: {
-    retrieveLessons() {
+    retrieveAlbums() {
       TutorialDataService.get(this.id)
         .then(response => {
           this.tutorial= response.data;
-          LessonDataService.getAllLessons(this.id)
+          AlbumDataService.getAllAlbums(this.id)
             .then(response=> {
-              this.lessons = response.data})
+              this.albums = response.data})
             .catch(e => {
                 this.message = e.response.data.message;
               });
@@ -67,17 +67,17 @@ export default {
      goEditTutorial() {
       this.$router.push({ name: 'edit', params: { id: this.id } });
     },
-    goEditLesson(lesson) {
-      this.$router.push({ name: 'editLesson', params: { tutorialId: this.id,lessonId: lesson.id} });
+    goEditAlbum(album) {
+      this.$router.push({ name: 'editAlbum', params: { tutorialId: this.id,albumId: album.id} });
     },
-    goAddLesson() {
+    goAddAlbum() {
       this.$router.push({ name: 'addtrack', params: { tutorialId: this.id } });
     },
 
-    goDeleteLesson(lesson) {
-      LessonDataService.deleteLesson(lesson.tutorialId,lesson.id)
+    goDeleteAlbum(album) {
+      AlbumDataService.deleteAlbum(album.tutorialId,album.id)
         .then( () => {
-          this.retrieveLessons()
+          this.retrieveAlbums()
         })
         .catch(e => {
           this.message = e.response.data.message;
@@ -88,7 +88,7 @@ export default {
     }
   },
     mounted() {
-    this.retrieveLessons();
+    this.retrieveAlbums();
   }
 }
 </script>
