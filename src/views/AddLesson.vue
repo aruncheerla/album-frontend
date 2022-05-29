@@ -4,9 +4,16 @@
     <h4>Album : {{tutorialId}}</h4>
     <v-form>
        <v-text-field
-            label="Album Title"
+            label="Album Name"
             v-model="lesson.title"
         />
+
+        <v-text-field label="Year" v-model="lesson.year" />
+
+        <v-text-field label="Genre" v-model="lesson.genre" />
+        <v-text-field label="Artist" v-model="lesson.artist" />
+
+
         <v-text-field
             label="Description"
             v-model="lesson.description"
@@ -46,6 +53,9 @@ export default {
       var data = {
         title: this.lesson.title,
         description: this.lesson.description,
+        year: this.lesson.year,
+        genre: this.lesson.genre,
+        artist: this.lesson.artist,
         tutorialId : this.tutorialId
       };
       LessonDataService.createLesson(this.tutorialId, data)

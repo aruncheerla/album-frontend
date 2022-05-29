@@ -3,7 +3,7 @@
     <h4>{{ message }}</h4>
     <v-form>
        <v-text-field
-            label="Title"
+            label="Artist Name"
             v-model="tutorial.title"
         />
         <v-text-field
