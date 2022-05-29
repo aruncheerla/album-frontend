@@ -73,7 +73,7 @@ export default {
       this.$router.push({ name: 'home' });
     },
     goAlbums() {
-      this.$router.push({ name: 'tutorials' });
+      this.$router.push({ name: 'artists' });
     },
     goArtists() {
       this.$router.push({ name: 'artists' });
@@ -85,7 +85,7 @@ export default {
       this.$router.push({ name: 'add' });
     },
     goList() {
-      this.$router.push({ name: 'tutorials' });
+      this.$router.push({ name: 'artists' });
     }
   },
 

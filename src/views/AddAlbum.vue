@@ -1,27 +1,27 @@
 <template>
     <h1>Add Album </h1>
     <h4>{{ message }}</h4>
-    <h4>Album : {{tutorialId}}</h4>
+    <h4>Album : {{artistId}}</h4>
     <v-form>
        <v-text-field
             label="Album Name"
-            v-model="lesson.title"
+            v-model="album.title"
         />
 
-        <v-text-field label="Year" v-model="lesson.year" />
+        <v-text-field label="Year" v-model="album.year" />
 
-        <v-text-field label="Genre" v-model="lesson.genre" />
-        <v-text-field label="Artist" v-model="lesson.artist" />
+        <v-text-field label="Genre" v-model="album.genre" />
+        <v-text-field label="Artist" v-model="album.artist" />
 
 
         <v-text-field
             label="Description"
-            v-model="lesson.description"
+            v-model="album.description"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveLesson()"
+                <v-btn color="success" @click="saveAlbum()"
                     >Save</v-btn
                 >
             </v-col>
@@ -33,13 +33,13 @@
     </v-form>
 </template>
 <script>
-import LessonDataService from "../services/LessonDataService";
+import AlbumDataService from "../services/AlbumDataService";
 export default {
-  name: "add-lesson",
-  props: ['tutorialId'],
+  name: "add-album",
+  props: ['artistId'],
   data() {
     return {
-      lesson: {
+      album: {
         id: null,
         title: "",
         description: "",
@@ -49,27 +49,27 @@ export default {
     };
   },
   methods: {
-    saveLesson() {
+    saveAlbum() {
       var data = {
-        title: this.lesson.title,
-        description: this.lesson.description,
-        year: this.lesson.year,
-        genre: this.lesson.genre,
-        artist: this.lesson.artist,
-        tutorialId : this.tutorialId
+        title: this.album.title,
+        description: this.album.description,
+        year: this.album.year,
+        genre: this.album.genre,
+        artist: this.album.artist,
+        artistId : this.artistId
       };
-      LessonDataService.createLesson(this.tutorialId, data)
+      AlbumDataService.createAlbum(this.artistId, data)
         .then(response => {
-          this.lesson.id = response.data.id;
+          this.album.id = response.data.id;
         
-          this.$router.push({ name: 'view' , params: { id: this.tutorialId }} );
+          this.$router.push({ name: 'view' , params: { id: this.artistId }} );
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'view' , params: { id: this.tutorialId }} );
+        this.$router.push({ name: 'view' , params: { id: this.artistId }} );
     }
   }
 }

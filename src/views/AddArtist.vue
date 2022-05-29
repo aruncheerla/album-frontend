@@ -4,16 +4,16 @@
     <v-form>
        <v-text-field
             label="Artist Name"
-            v-model="tutorial.title"
+            v-model="artist.title"
         />
         <v-text-field
             label="Description"
-            v-model="tutorial.description"
+            v-model="artist.description"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveTutorial()"
+                <v-btn color="success" @click="saveArtist()"
                     >Save</v-btn
                 >
             </v-col>
@@ -25,12 +25,12 @@
     </v-form>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import ArtistDataService from "../services/ArtistDataService";
 export default {
-  name: "add-tutorial",
+  name: "add-artist",
   data() {
     return {
-      tutorial: {
+      artist: {
         id: null,
         title: "",
         description: "",
@@ -40,23 +40,23 @@ export default {
     };
   },
   methods: {
-    saveTutorial() {
+    saveArtist() {
       var data = {
-        title: this.tutorial.title,
-        description: this.tutorial.description
+        title: this.artist.title,
+        description: this.artist.description
       };
-      TutorialDataService.create(data)
+      ArtistDataService.create(data)
         .then(response => {
-          this.tutorial.id = response.data.id;
+          this.artist.id = response.data.id;
           console.log("add "+response.data);
-          this.$router.push({ name: 'tutorials' });
+          this.$router.push({ name: 'artists' });
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'tutorials' });
+        this.$router.push({ name: 'artists' });
     }
   }
 }
