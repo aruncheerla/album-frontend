@@ -3,9 +3,14 @@
     <h4>{{ message }}</h4>
     <v-form>
        <v-text-field
-            label="Title"
+            label="Track Name"
             v-model="track.title"
         />
+
+        <v-text-field label="Album" v-model="track.album" />
+        <v-text-field label="Number" v-model="track.number" />
+        <v-text-field label="Length" v-model="track.length" />
+
         <v-text-field
             label="Description"
             v-model="track.description"
@@ -43,6 +48,9 @@ export default {
     saveTrack() {
       var data = {
         title: this.track.title,
+        album: this.track.album,
+        number: this.track.number,
+        length: this.track.length,
         description: this.track.description
       };
       TrackDataService.create(data)
