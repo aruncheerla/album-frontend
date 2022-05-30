@@ -73,7 +73,7 @@ export default {
       this.$router.push({ name: 'home' });
     },
     goAlbums() {
-      this.$router.push({ name: 'artists' });
+      this.$router.push({ name: 'albums' });
     },
     goArtists() {
       this.$router.push({ name: 'artists' });

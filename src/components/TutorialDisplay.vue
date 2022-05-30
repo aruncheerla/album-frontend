@@ -2,23 +2,23 @@
 <v-row>
   <v-col  cols="9"
         sm="2">
-      <span >{{ tutorial.title }}</span>
+      <span >{{ artist.title }}</span>
   </v-col>
   <v-col  cols="9"
         sm="4">
-      <span> {{ tutorial.description }}</span>
+      <span> {{ artist.description }}</span>
   </v-col>
   <v-col  cols="9"
         sm="1">
-      <v-btn size="x-small" icon="mdi-pencil" @click="updateTutorial"/>
+      <v-btn size="x-small" icon="mdi-pencil" @click="updateArtist"/>
   </v-col>
   <v-col  cols="9"
         sm="1">
-      <v-btn size="x-small" icon="mdi-format-list-bulleted-type" @click="viewTutorial"/>
+      <v-btn size="x-small" icon="mdi-format-list-bulleted-type" @click="viewArtist"/>
   </v-col>
   <v-col  cols="9"
         sm="1">
-      <v-btn size="x-small" icon="mdi-trash-can" @click="deleteTutorial"/>
+      <v-btn size="x-small" icon="mdi-trash-can" @click="deleteArtist"/>
   </v-col>
 </v-row>
 </template>
@@ -26,7 +26,7 @@
 <script>
 export default {
   props: {
-    tutorial: Object
+    artist: Object
   },
   data() {
     return {
@@ -35,14 +35,14 @@ export default {
   },
   methods: {
 
-    deleteTutorial() {
-      this.$emit("deleteTutorial");
+    deleteArtist() {
+      this.$emit("deleteArtist");
     },
-    updateTutorial() {
-      this.$emit("updateTutorial");
+    updateArtist() {
+      this.$emit("updateArtist");
     },
-    viewTutorial() {
-      this.$emit("viewTutorial");
+    viewArtist() {
+      this.$emit("viewArtist");
     }
   }
 };
