@@ -3,8 +3,8 @@ const routes =  [
   {
     path: "/albums",
     alias: "/artists",
-    name: "artists",
-    component: () => import("./views/ArtistsList.vue")
+    name: "albums",
+    component: () => import("./views/AlbumList.vue")
   },
   {
     path: "/",
