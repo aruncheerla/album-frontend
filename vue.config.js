@@ -1,13 +1,13 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  port: 8081
+  port: 8080
 }),
 module.exports = {
   devServer: {
     host: 'localhost',
-    port: 8081
+    port: 8080
   },
-  publicPath: process.env.NODE_ENV === 'development' ? '/' : '/tutorial-frontend-1/',
+  publicPath: process.env.NODE_ENV === 'development' ? '/' : '/album-frontend-1/',
 }
 

@@ -2,11 +2,11 @@
 <v-row>
   <v-col  cols="9"
         sm="2">
-      <span >{{ artist.title }}</span>
+      <span >{{ artist.artist_name }}</span>
   </v-col>
   <v-col  cols="9"
         sm="4">
-      <span> {{ artist.description }}</span>
+      <span> {{ artist.artist_type }}</span>
   </v-col>
   <v-col  cols="9"
         sm="1">

@@ -1,21 +1,19 @@
 <template>
-    <h1>Edit Artist </h1>
+    <h1>Artist Edit</h1>
     <h4>{{ message }}</h4>
-    <h4>Artist : {{tutorialId}} </h4>   
-
     <v-form>
        <v-text-field
-            label="Album Title"
-            v-model="lesson.title"
+            label="Artist Name"
+            v-model="artist.artist_name"
         />
         <v-text-field
-            label="Description"
-            v-model="lesson.description"
+            label="Artist Type"
+            v-model="artist.artist_type"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveLesson()"
+                <v-btn color="success" @click="updateArtist()"
                     >Save</v-btn
                 >
             </v-col>
@@ -27,49 +25,53 @@
     </v-form>
 </template>
 <script>
-import LessonDataService from "../services/LessonDataService";
+import ArtistDataService from "../services/ArtistDataService";
 export default {
-  name: "edit-lesson",
-  props: {tutorialId : String,lessonId:String},
+  name: "edit-artist",
+  props: ['id'],
   data() {
     return {
-      lesson: Object,
+      artist: {},
       message: "Enter data and click save"
     };
   },
   methods: {
-    retrieveLesson() {
-      LessonDataService.getLesson(this.tutorialId,this.lessonId)
+    retrieveArtist() {
+      ArtistDataService.get(this.id)
         .then(response => {
-          this.lesson= response.data;
+          this.artist= response.data;
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
 
     },
-    saveLesson() {
+
+    updateArtist() {
       var data = {
-        title: this.lesson.title,
-        description: this.lesson.description,
-        tutorialId : this.lesson.tutorialId
+        artist_name: this.artist.artist_name,
+        artist_type: this.artist.artist_type
+
       };
-      LessonDataService.updateLesson(this.lesson.tutorialId,this.lesson.id, data)
+      console.log(" id to update: "+this.id);
+      console.log(" arrist name to update: "+this.artist_name);
+      console.log(" type to update: "+this.artist_type);
+      ArtistDataService.update(this.id,data)
         .then(response => {
-          this.lesson.id = response.data.id;
-        
-         this.$router.push({ name: 'view' , params: { id: this.lesson.tutorialId }} );
+          this.artist.id = response.data.id;
+          console.log("add "+response.data);
+          this.$router.push({ name: 'artists' });
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'view' , params: { id: this.lesson.tutorialId }} );
+        this.$router.push({ name: 'artists' });
     }
   },
     mounted() {
-      this.retrieveLesson();
+    this.retrieveArtist();
   }
 }
 

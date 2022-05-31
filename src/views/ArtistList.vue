@@ -1,10 +1,9 @@
 <template>
 
-    <h1>Artist List </h1>
-    <h4 class="h4-head">{{ message }}</h4>
+    <h1>Artist List</h1>
+    <h4>{{ message }}</h4>
   
       <v-row >
-
         <v-col  cols="12" sm="2">
           <v-btn color = "success" @click="addArtist" >
             Add Artist
@@ -12,33 +11,32 @@
         </v-col>
 
         <v-col  cols="12"
-        sm="2" class="search-btn">
+        sm="2">
           <v-btn color = "success"
-            @click="searchTitle"
+            @click="searchArtist"
           >
             Search
           </v-btn>
         </v-col>
         <v-col col="12" sm="8">
             <v-text-field density="compact" clearable
-              v-model="title"/>
+              v-model="artistName"/>
         </v-col> 
       </v-row>
       <v-row>
         <v-col  cols="9"
               sm="2">
-            <span class="text-h6">Artist Title</span>
+            <span class="text-h6">Artist Name</span>
         </v-col>
         <v-col  cols="9"
               sm="4">
-            <span class="text-h6">Description</span>
+            <span class="text-h6">Artist Type</span>
         </v-col>
         <v-col  cols="9"
               sm="1">
-            <span class="text-h6">
-                  Edit</span>
+            <span class="text-h6">Edit</span>
         </v-col>
-<v-col  cols="9"
+        <v-col  cols="9"
               sm="1">
             <span class="text-h6">View</span>
         </v-col>
@@ -78,11 +76,9 @@ export default {
         ArtistDisplay
     },
   methods: {
-
-   addArtist() {
+    addArtist() {
       this.$router.push({ name: 'addartist' });
     },
-
     goEdit(artist) {
       this.$router.push({ name: 'edit', params: { id: artist.id } });
     },
@@ -129,8 +125,8 @@ export default {
         });
     },
     
-    searchTitle() {
-      ArtistDataService.findByTitle(this.title)
+    searchArtist() {
+      ArtistDataService.findByArtistName(this.artistName)
         .then(response => {
           this.artists = response.data;
           this.setActiveArtist(null);
@@ -147,18 +143,5 @@ export default {
 };
 </script>
 <style>
-.text-h6 .v-btn{
-    font-size: 1.25rem !important;
-    font-weight: 500;
-    line-height: 2rem;
-    letter-spacing: 0.0125em !important;
-    font-family: "Roboto", sans-serif !important;
-    text-transform: none !important;
-}
-.search-btn button{
-  float: right;
-}
-h4.h4-head{
-  margin-bottom: 18px;
-}
+
 </style>
