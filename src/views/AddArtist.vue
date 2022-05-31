@@ -1,14 +1,14 @@
 <template>
-    <h1>Add Artist</h1>
+    <h1>Aritst Add</h1>
     <h4>{{ message }}</h4>
     <v-form>
        <v-text-field
             label="Artist Name"
-            v-model="artist.title"
+            v-model="artist.artistName"
         />
         <v-text-field
-            label="Description"
-            v-model="artist.description"
+            label="Artist Type"
+            v-model="artist.artistType"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
@@ -32,9 +32,8 @@ export default {
     return {
       artist: {
         id: null,
-        title: "",
-        description: "",
-        published: false
+        artistName: "",
+        artistType: "",
       },
       message: "Enter data and click save"
     };
@@ -42,8 +41,8 @@ export default {
   methods: {
     saveArtist() {
       var data = {
-        title: this.artist.title,
-        description: this.artist.description
+        artistName: this.artist.artistName,
+        artistType: this.artist.artistType
       };
       ArtistDataService.create(data)
         .then(response => {
