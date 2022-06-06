@@ -1,67 +1,51 @@
 <template>
+  <h1>Album List</h1>
+  <h4 class="h4-head">{{ message }}</h4>
 
-    <h1>Album List </h1>
-    <h4 class="h4-head">{{ message }}</h4>
-  
-      <v-row >
+  <v-row>
+    <v-col cols="12" sm="2">
+      <v-btn color="success" @click="addAlbum"> Add Album </v-btn>
+    </v-col>
 
-          <v-col  cols="12" sm="2">
-          <v-btn color = "success" @click="addAlbum" >
-            Add Album
-          </v-btn>
-        </v-col>
+    <v-col cols="12" sm="2">
+      <v-btn color="success" @click="searchTitle"> Search </v-btn>
+    </v-col>
+    <v-col col="12" sm="8">
+      <v-text-field density="compact" clearable v-model="title" />
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-col cols="9" sm="2">
+      <span class="text-h6">Album Title</span>
+    </v-col>
+    <v-col cols="9" sm="4">
+      <span class="text-h6">Description</span>
+    </v-col>
+    <v-col cols="9" sm="1">
+      <span class="text-h6">Edit</span>
+    </v-col>
+    <v-col cols="9" sm="1">
+      <span class="text-h6">View</span>
+    </v-col>
+    <v-col cols="9" sm="1">
+      <span class="text-h6">Delete</span>
+    </v-col>
+  </v-row>
+  <AlbumDisplay
+    v-for="tutorial in tutorials"
+    :key="tutorial.id"
+    :album="tutorial"
+    @deleteAlbum="goDelete(tutorial)"
+    @updateAlbum="goEdit(tutorial)"
+    @viewTutorial="goView(tutorial)"
+  />
 
-        <v-col  cols="12"
-        sm="2">
-          <v-btn color = "success"
-            @click="searchTitle"
-          >
-            Search
-          </v-btn>
-        </v-col>
-        <v-col col="12" sm="8">
-            <v-text-field density="compact" clearable
-              v-model="title"/>
-        </v-col> 
-      </v-row>
-      <v-row>
-        <v-col  cols="9"
-              sm="2">
-            <span class="text-h6">Album Title</span>
-        </v-col>
-        <v-col  cols="9"
-              sm="4">
-            <span class="text-h6">Description</span>
-        </v-col>
-        <v-col  cols="9"
-              sm="1">
-            <span class="text-h6">Edit</span>
-        </v-col>
-        <v-col  cols="9"
-              sm="1">
-            <span class="text-h6">View</span>
-        </v-col>
-        <v-col  cols="9"
-              sm="1">
-            <span class="text-h6">Delete</span>
-        </v-col>
-      </v-row>
-      <TutorialDisplay
-        v-for="tutorial in tutorials"
-        :key="tutorial.id"
-        :tutorial="tutorial"
-        @deleteTutorial="goDelete(tutorial)"
-        @updateTutorial="goEdit(tutorial)"
-        @viewTutorial="goView(tutorial)"
-    />
- 
-  <v-btn  @click="removeAllTutorials">
-    Remove All
-  </v-btn>
+  <v-btn @click="removeAllTutorials"> Remove All </v-btn>
 </template>
 <script>
+import AlbumDataService from "../services/AlbumDataService";
 import TutorialDataService from "../services/TutorialDataService";
-import TutorialDisplay from '@/components/TutorialDisplay.vue';
+import AlbumDisplay from "@/components/AlbumDisplay.vue";
 export default {
   name: "tutorials-list",
   data() {
@@ -70,41 +54,39 @@ export default {
       currentTutorial: null,
       currentIndex: -1,
       title: "",
-      message : "Search, Edit or Delete Albums"
+      message: "Search, Edit or Delete Albums",
     };
   },
   components: {
-        TutorialDisplay
-    },
+    AlbumDisplay,
+  },
   methods: {
-  
-  addAlbum() {
-      this.$router.push({ name: 'addalbum' });
+    addAlbum() {
+      this.$router.push({ name: "addalbum" });
     },
 
     goEdit(tutorial) {
-      this.$router.push({ name: 'edit', params: { id: tutorial.id } });
+      this.$router.push({ name: "editalbum", params: { id: tutorial.id } });
     },
     goView(tutorial) {
-      this.$router.push({ name: 'view', params: { id: tutorial.id } });
+      this.$router.push({ name: "view", params: { id: tutorial.id } });
     },
     goDelete(tutorial) {
       TutorialDataService.delete(tutorial.id)
-        .then( () => {
-    
-          this.retrieveTutorials()
+        .then(() => {
+          this.retrieveTutorials();
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
     },
     retrieveTutorials() {
-      TutorialDataService.getAll()
-        .then(response => {
+      AlbumDataService.getAllAlbum()
+        .then((response) => {
+          console.log(response);
           this.tutorials = response.data;
-          
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
     },
@@ -119,46 +101,45 @@ export default {
     },
     removeAllTutorials() {
       TutorialDataService.deleteAll()
-        .then(response => {
+        .then((response) => {
           console.log(response.data);
           this.refreshList();
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
     },
-    
+
     searchTitle() {
       TutorialDataService.findByTitle(this.title)
-        .then(response => {
+        .then((response) => {
           this.tutorials = response.data;
           this.setActiveTutorial(null);
-          
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
-    }
+    },
   },
   mounted() {
     this.retrieveTutorials();
-  }
+  },
 };
 </script>
 
 <style>
-.text-h6 .v-btn{
-    font-size: 1.25rem !important;
-    font-weight: 500;
-    line-height: 2rem;
-    letter-spacing: 0.0125em !important;
-    font-family: "Roboto", sans-serif !important;
-    text-transform: none !important;
+.text-h6 .v-btn {
+  font-size: 1.25rem !important;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: 0.0125em !important;
+  font-family: "Roboto", sans-serif !important;
+  text-transform: none !important;
 }
-.search-btn button{
+.search-btn button {
   float: right;
 }
-h4.h4-head{
+h4.h4-head {
   margin-bottom: 18px;
 }
 </style>
