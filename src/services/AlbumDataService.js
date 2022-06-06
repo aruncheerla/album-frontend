@@ -1,19 +1,22 @@
 import http from "../http-common";
 class AlbumDataService {
-  getAllAlbum(tutorialId) {
-    return http.get(`/tutorials/${tutorialId}/albums`);
+  getAllAlbum() {
+    return http.get(`/album`);
   }
-  getAlbum(tutorialId,id) {
-    return http.get(`/tutorials/${tutorialId}/albums/${id}`);
+  getAlbum(id) {
+    return http.get(`/album/${id}`);
   }
-  createAlbum(tutorialId,data) {
-    return http.post(`/tutorials/${tutorialId}/albums`, data);
+  createAlbum(data) {
+    return http.post(`/album/add`, data);
   }
-  updateAlbum(tutorialId,id, data) {
-    return http.put(`/tutorials/${tutorialId}/albums/${id}`, data);
+  updateAlbum(id, data) {
+    return http.put(`/album/${id}`, data);
   }
-  deleteAlbum(tutorialId,id) {
-    return http.delete(`/tutorials/${tutorialId}/albums/${id}`);
+  deleteAlbum(id) {
+    return http.delete(`/albums/${id}`);
+  }
+  uploadImage(data){
+    return http.post(`/album/uploadImage`,data);
   }
 
 }
