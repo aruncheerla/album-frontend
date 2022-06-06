@@ -1,67 +1,50 @@
 <template>
+  <h1>Track Lists</h1>
+  <h4 class="h4-head">{{ message }}</h4>
 
-    <h1>Track List </h1>
-    <h4 class="h4-head">{{ message }}</h4>
-  
-      <v-row >
+  <v-row>
+    <v-col cols="12" sm="2">
+      <v-btn color="success" @click="addTrack"> Add Track </v-btn>
+    </v-col>
 
-        <v-col  cols="12" sm="2">
-          <v-btn color = "success" @click="addTrack" >
-            Add Track
-          </v-btn>
-        </v-col>
+    <v-col cols="12" sm="2" class="search-btn">
+      <v-btn color="success" @click="searchTitle"> Search </v-btn>
+    </v-col>
+    <v-col col="12" sm="8">
+      <v-text-field density="compact" clearable v-model="title" />
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-col cols="4" sm="2">
+      <span class="text">Track Title</span>
+    </v-col>
+    <v-col cols="4" sm="4">
+      <span class="text-h6">Description</span>
+    </v-col>
+    <v-col cols="4" sm="1">
+      <span class="text-h6">Edit</span>
+    </v-col>
+    <v-col cols="4" sm="1">
+      <span class="text-h6">View</span>
+    </v-col>
+    <v-col cols="4" sm="1">
+      <span class="text-h6">Delete</span>
+    </v-col>
+  </v-row>
+  <TrackDisplay
+    v-for="tutorial in tutorials"
+    :key="tutorial.id"
+    :track="tutorial"
+    @deleteTutorial="goDelete(tutorial)"
+    @updateTutorial="goEdit(tutorial)"
+    @viewTutorial="goView(tutorial)"
+  />
 
-        <v-col  cols="12"
-        sm="2" class="search-btn">
-          <v-btn color = "success"
-            @click="searchTitle"
-          >
-            Search
-          </v-btn>
-        </v-col>
-        <v-col col="12" sm="8">
-            <v-text-field density="compact" clearable
-              v-model="title"/>
-        </v-col> 
-      </v-row>
-      <v-row>
-        <v-col  cols="9"
-              sm="2">
-            <span class="text-h6">Track Title</span>
-        </v-col>
-        <v-col  cols="9"
-              sm="4">
-            <span class="text-h6">Description</span>
-        </v-col>
-        <v-col  cols="9"
-              sm="1">
-            <span class="text-h6">Edit</span>
-        </v-col>
-        <v-col  cols="9"
-              sm="1">
-            <span class="text-h6">View</span>
-        </v-col>
-        <v-col  cols="9"
-              sm="1">
-            <span class="text-h6">Delete</span>
-        </v-col>
-      </v-row>
-      <TutorialDisplay
-        v-for="tutorial in tutorials"
-        :key="tutorial.id"
-        :tutorial="tutorial"
-        @deleteTutorial="goDelete(tutorial)"
-        @updateTutorial="goEdit(tutorial)"
-        @viewTutorial="goView(tutorial)"
-    />
- 
-  <v-btn  @click="removeAllTutorials">
-    Remove All
-  </v-btn>
+  <v-btn @click="removeAllTutorials"> Remove All </v-btn>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
-import TutorialDisplay from '@/components/TutorialDisplay.vue';
+import TrackDataService from "../services/TrackDataService";
+import TrackDisplay from "@/components/TrackDisplay.vue";
 export default {
   name: "tutorials-list",
   data() {
@@ -70,42 +53,38 @@ export default {
       currentTutorial: null,
       currentIndex: -1,
       title: "",
-      message : "Search, Edit or Delete Artists"
+      message: "Search, Edit or Delete Artists",
     };
   },
   components: {
-        TutorialDisplay
-    },
+    TrackDisplay,
+  },
   methods: {
-
-addTrack() {
-      this.$router.push({ name: 'addtrack' });
+    addTrack() {
+      this.$router.push({ name: "addtrack" });
     },
-
 
     goEdit(tutorial) {
-      this.$router.push({ name: 'edit', params: { id: tutorial.id } });
+      this.$router.push({ name: "edit", params: { id: tutorial.id } });
     },
     goView(tutorial) {
-      this.$router.push({ name: 'view', params: { id: tutorial.id } });
+      this.$router.push({ name: "view", params: { id: tutorial.id } });
     },
     goDelete(tutorial) {
-      TutorialDataService.delete(tutorial.id)
-        .then( () => {
-    
-          this.retrieveTutorials()
+      TrackDataService.delete(tutorial.id)
+        .then(() => {
+          this.retrieveTutorials();
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
     },
     retrieveTutorials() {
-      TutorialDataService.getAll()
-        .then(response => {
+      TrackDataService.getAll()
+        .then((response) => {
           this.tutorials = response.data;
-          
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
     },
@@ -119,33 +98,30 @@ addTrack() {
       this.currentIndex = tutorial ? index : -1;
     },
     removeAllTutorials() {
-      TutorialDataService.deleteAll()
-        .then(response => {
+      TrackDataService.deleteAll()
+        .then((response) => {
           console.log(response.data);
           this.refreshList();
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
     },
-    
+
     searchTitle() {
-      TutorialDataService.findByTitle(this.title)
-        .then(response => {
+      TrackDataService.findByTitle(this.title)
+        .then((response) => {
           this.tutorials = response.data;
           this.setActiveTutorial(null);
-          
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
-    }
+    },
   },
   mounted() {
     this.retrieveTutorials();
-  }
+  },
 };
 </script>
-<style>
-
-</style>
+<style></style>

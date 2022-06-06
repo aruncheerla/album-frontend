@@ -1,25 +1,25 @@
 import http from "../http-common";
 class ArtistDataService {
   getAll() {
-    return http.get("/artists");
+    return http.get("/artist");
   }
   get(id) {
-    return http.get(`/artists/${id}`);
+    return http.get(`/artist/${id}`);
   }
   create(data) {
-    return http.post("/artists", data);
+    return http.post("/artist", data);
   }
   update(id, data) {
-    return http.put(`/artists/${id}`, data);
+    return http.put(`/artist/${id}`, data);
   }
   delete(id) {
-    return http.delete(`/artists/${id}`);
+    return http.delete(`/artist/${id}`);
   }
   deleteAll() {
-    return http.delete(`/artists`);
+    return http.delete(`/artist`);
   }
   findByTitle(title) {
-    return http.get(`/artists?title=${title}`);
+    return http.get(`/artist?title=${title}`);
   }
 }
 export default new ArtistDataService();
