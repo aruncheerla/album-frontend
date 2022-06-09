@@ -1,16 +1,21 @@
 <template>
-  <h1>Edit Album</h1>
-  <h4>{{ message }}</h4>
-  <h4>Album : {{ albumId }}</h4>
+  <h1 style="font-family: Arial, Helvetica, sans-serif;font-size:40px;">View Album</h1>
 
+ <v-row>
+      <v-col col="6">
   <v-form>
-    <v-text-field label="Album Title" v-model="album.albumName"/>
+    <br>
+    <p style="font-size:30px;">Album Title : {{ album.albumName }}</p>
+    <br>
+    <p style="font-size:30px;">Year : {{ album.albumYear }}</p>
+    <br>
+    <p style="font-size:30px;">Genre : {{ album.albumGenre }}</p>
+    <br>
+    <p style="font-size:30px;">Artist : {{ album.albumArtist }}</p>
+     <br>
+    <p style="font-size:30px;">Description : {{ album.albumDescription }}</p>
+   
 
-    <v-text-field label="Year" v-model="album.albumYear" />
-
-    <v-text-field label="Genre" v-model="album.albumGenre" />
-     <v-select label="Artist" v-model="album.albumArtist" :items="album.artists"/>
-    <v-text-field label="Description" v-model="album.albumDescription" />
     <v-row>
       <v-col col="8">
         <v-file-input
@@ -27,7 +32,7 @@
     <v-row justify="center">
       <v-col col="2"> </v-col>
       <v-col col="2">
-        <v-btn color="success" @click="saveAlbum()">Save</v-btn>
+        
       </v-col>
       <v-col col="2">
         <v-btn color="info" @click="cancel()">Cancel</v-btn>
@@ -35,6 +40,10 @@
       <v-col col="2"> </v-col>
     </v-row>
   </v-form>
+  </v-col>
+  <v-col col="6">
+  </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -52,37 +61,24 @@ export default {
     retrieveAlbum() {
       AlbumDataService.getAlbum(this.id)
         .then((response) => {
-          const { id,album_name, album_year, album_genre, album_artist, album_description,album_image } =
+          const { album_name, album_year, album_genre, album_artist, album_description,albumImage } =
             response.data;
-          this.previewImage = album_image;
-          
-          AlbumDataService.getArtist()
-            .then((response) => {
-              let data = [];
-              response.data.forEach((val)=>{
-                  data.push(val.artist_name);
-              })
-               this.album = {
-                albumName: album_name,
-                albumYear: album_year,
-                albumGenre: album_genre,
-                albumArtist: album_artist,
-                albumDescription: album_description,
-                albumImage: "",
-                artists: data,
-                id:id,
-            };
-           })
-            .catch((e) => {
-              this.message = e.response.data.message;
-            });
+          this.previewImage = albumImage;
+          this.album = {
+            albumName: album_name,
+            albumYear: album_year,
+            albumGenre: album_genre,
+            albumArtist: album_artist,
+            albumDescription: album_description,
+            albumImage: "",
+            artists: ["Ravi","Raj"],
+          };
         })
         .catch((e) => {
           this.message = "";
         });
     },
     saveAlbum() {
-      console.log(this.album.albumName,'this.album.albumName');
       var data = {
         albumName: this.album.albumName,
         albumYear: this.album.albumYear,
@@ -91,11 +87,11 @@ export default {
         albumDescription: this.album.albumDescription,
         albumImage: this.album.albumImage,
         artistId: this.album.artistId,
-        id:this.album.id
       };
-      AlbumDataService.updateAlbum(this.id, data)
+      AlbumDataService.viewTrack(this.id, data)
         .then((response) => {
           this.album.id = response.data.id;
+
           this.$router.push({
             name: "albums",
           });
@@ -111,8 +107,17 @@ export default {
       reader.readAsDataURL(image);
       reader.onload = (e) => {
         this.previewImage = e.target.result;
-        this.album.albumImage = e.target.result;
+        console.log(this.previewImage);
       };
+      let data = new FormData();
+      data.append("file", image);
+      AlbumDataService.uploadImage(data)
+        .then((response) => {
+          this.album.album_image = response.data;
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
     },
     cancel() {
       this.$router.push({ name: "albums" });
@@ -125,3 +130,4 @@ export default {
 </script>
 
 <style></style>
+

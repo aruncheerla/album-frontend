@@ -10,6 +10,19 @@
             label="Artist Type"
             v-model="artist.artist_type"
         />
+        <v-row>
+      <v-col col="8">
+        <v-file-input
+          label="Artist image"
+          prepend-icon="mdi-camera"
+          accept="image/png, image/jpeg"
+          @change="uploadImage"
+        />
+      </v-col>
+      <v-col col="4">
+        <v-img max-height="150" max-width="250" :src="previewImage"></v-img>
+      </v-col>
+    </v-row>
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
@@ -49,13 +62,14 @@ export default {
 
     updateArtist() {
       var data = {
-        artist_name: this.artist.artist_name,
-        artist_type: this.artist.artist_type
+        artistName: this.artist.artistName,
+        artistType: this.artist.artistType,
+        artistImage: this.artist.artistImage
 
       };
       console.log(" id to update: "+this.id);
-      console.log(" arrist name to update: "+this.artist_name);
-      console.log(" type to update: "+this.artist_type);
+      console.log(" arrist name to update: "+this.artistName);
+      console.log(" type to update: "+this.artistType);
       ArtistDataService.update(this.id,data)
         .then(response => {
           this.artist.id = response.data.id;

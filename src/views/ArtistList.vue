@@ -23,7 +23,7 @@
               v-model="artistName"/>
         </v-col> 
       </v-row>
-      <v-row>
+      <v-row v-if="artists & artists.length > 0">
         <v-col  cols="9"
               sm="2">
             <span class="text-h6">Artist Name</span>
@@ -53,6 +53,8 @@
         @updateArtist="goEdit(artist)"
         @viewArtist="goView(artist)"
     />
+     <span v-if="!artists  || artists.length ==0"><h1 style="text-align:center">No Data found for Artist</h1></span>
+  
  
   <v-btn  @click="removeAllArtists">
     Remove All

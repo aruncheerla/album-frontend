@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 const routes =  [
   {
     path: "/albums",
-    alias: "/artists",
+    // alias: "/artists",
     name: "albums",
     component: () => import("./views/AlbumList.vue")
   },
@@ -50,9 +50,27 @@ const routes =  [
     props: true
   },
   {
-    path: "/editalbum",
-    name: "editAlbum",
+    path: "/editalbum/:id",
+    name: "editalbum",
     component: () => import("./views/EditAlbum.vue"),
+    props: true
+  },
+  {
+    path: "/viewalbum/:id",
+    name: "viewalbum",
+    component: () => import("./views/ViewAlbum.vue"),
+    props: true
+  },
+  {
+    path: "/edittrack/:id",
+    name: "edittrack",
+    component: () => import("./views/EditTrack.vue"),
+    props: true
+  },
+  {
+    path: "/viewtrack/:id",
+    name: "viewtrack",
+    component: () => import("./views/ViewTrack.vue"),
     props: true
   }
 ];

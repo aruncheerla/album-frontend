@@ -3,12 +3,13 @@
   <h4>{{ message }}</h4>
   <h4>Album : {{ artistId }}</h4>
   <v-form>
-    <v-text-field label="Album Name" v-model="album.albumName" />
+    <v-text-field label="Album Name" v-model="album.albumName" required/>
 
-    <v-text-field label="Year" v-model="album.albumYear" />
+    <v-text-field label="Year" v-model="album.albumYear" 
+    :rules="[v => !!v || 'Email is required']" required/>
 
     <v-text-field label="Genre" v-model="album.albumGenre" />
-    <v-text-field label="Artist" v-model="album.albumArtist" />
+    <v-select label="Artist" v-if="album.artists.length !== 0" v-model="album.albumArtist" :items="album.artists"/>
     <v-text-field label="Description" v-model="album.albumDescription" />
     <v-row>
       <v-col col="8">
@@ -37,6 +38,7 @@
 </template>
 <script>
 import AlbumDataService from "../services/AlbumDataService";
+
 export default {
   name: "add-album",
   props: ["artistId"],
@@ -52,11 +54,26 @@ export default {
         albumArtist: "",
         albumImage: "",
         published: false,
+        artists: [],
       },
       message: "Enter data and click save",
+      artistData : [],
     };
   },
   methods: {
+   async callArtiseDetails(){
+       AlbumDataService.getArtist()
+        .then((response) => {
+          let data = [];
+          response.data.forEach((val)=>{
+              data.push(val.artist_name);
+          })
+          this.album.artists = data;
+d        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
     saveAlbum() {
       var data = {
         albumName: this.album.albumName,
@@ -87,18 +104,12 @@ export default {
       reader.readAsDataURL(image);
       reader.onload = (e) => {
         this.previewImage = e.target.result;
-        console.log(this.previewImage);
+        this.album.albumImage = e.target.result;
       };
-      let data = new FormData();
-      data.append("file", image);
-      AlbumDataService.uploadImage(data)
-        .then((response) => {
-          this.album.album_image = response.data;
-        })
-        .catch((e) => {
-          this.message = e.response.data.message;
-        });
     },
+  },
+  mounted() {
+    this.callArtiseDetails();
   },
 };
 </script>

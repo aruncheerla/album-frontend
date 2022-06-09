@@ -21,5 +21,8 @@ class ArtistDataService {
   findByArtistName(artistName) {
     return http.get(`/artist/search/${artistName}`);
   }
+  uploadImage(data){
+    return http.post(`/artist/uploadImage`,data);
+  }
 }
 export default new ArtistDataService();

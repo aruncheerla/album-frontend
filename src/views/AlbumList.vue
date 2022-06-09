@@ -14,7 +14,7 @@
       <v-text-field density="compact" clearable v-model="title" />
     </v-col>
   </v-row>
-  <v-row>
+  <v-row v-if="tutorials & tutorials.length > 0">
     <v-col cols="9" sm="2">
       <span class="text-h6">Album Title</span>
     </v-col>
@@ -37,10 +37,12 @@
     :album="tutorial"
     @deleteAlbum="goDelete(tutorial)"
     @updateAlbum="goEdit(tutorial)"
-    @viewTutorial="goView(tutorial)"
+    @viewAlbum="goView(tutorial)"
   />
-
-  <v-btn @click="removeAllTutorials"> Remove All </v-btn>
+  <span v-if="!tutorials || tutorials.length ==0"><h1 style="text-align:center">No Data found for Album</h1></span>
+  
+  <v-btn @click="removeAllTutorials" > Remove All </v-btn>
+  
 </template>
 <script>
 import AlbumDataService from "../services/AlbumDataService";
@@ -64,23 +66,22 @@ export default {
     addAlbum() {
       this.$router.push({ name: "addalbum" });
     },
-
     goEdit(tutorial) {
       this.$router.push({ name: "editalbum", params: { id: tutorial.id } });
     },
     goView(tutorial) {
-      this.$router.push({ name: "view", params: { id: tutorial.id } });
+      this.$router.push({ name: "viewalbum", params: { id: tutorial.id } });
     },
     goDelete(tutorial) {
-      TutorialDataService.delete(tutorial.id)
+      AlbumDataService.deleteAlbum(tutorial.id)
         .then(() => {
-          this.retrieveTutorials();
+          this.retrieveAlbums();
         })
         .catch((e) => {
           this.message = e.response.data.message;
         });
     },
-    retrieveTutorials() {
+    retrieveAlbums() {
       AlbumDataService.getAllAlbum()
         .then((response) => {
           console.log(response);
@@ -91,7 +92,7 @@ export default {
         });
     },
     refreshList() {
-      this.retrieveTutorials();
+      this.retrieveAlbums();
       this.currentTutorial = null;
       this.currentIndex = -1;
     },
@@ -111,7 +112,7 @@ export default {
     },
 
     searchTitle() {
-      TutorialDataService.findByTitle(this.title)
+      AlbumDataService.findByTitle(this.title) 
         .then((response) => {
           this.tutorials = response.data;
           this.setActiveTutorial(null);
@@ -122,7 +123,7 @@ export default {
     },
   },
   mounted() {
-    this.retrieveTutorials();
+    this.retrieveAlbums();
   },
 };
 </script>
