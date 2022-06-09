@@ -10,7 +10,7 @@
       <v-btn size="x-small" icon="mdi-pencil" @click="updateAlbum" />
     </v-col>
     <v-col cols="8" sm="1">
-      <v-btn size="x-small" icon="mdi-format-list-bulleted-type" @click="updateAlbum" />
+      <v-btn size="x-small" icon="mdi-format-list-bulleted-type" @click="viewAlbum" />
     </v-col>
     <v-col cols="8" sm="1">
       <v-btn size="x-small" icon="mdi-trash-can" @click="deleteAlbum" />
@@ -32,6 +32,9 @@ export default {
     },
     updateAlbum() {
       this.$emit("updateAlbum");
+    },
+    viewAlbum() {
+      this.$emit("viewAlbum");
     },
   },
 };
