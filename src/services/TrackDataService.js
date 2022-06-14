@@ -9,7 +9,7 @@ class TrackDataService {
   create(data) {
     return http.post("/track/add", data);
   }
-  updatetrack(id, data) {
+  updateTrack(id, data) {
     return http.put(`/track/${id}`, data);
   }
   viewtrack(id, data) {
@@ -23,6 +23,12 @@ class TrackDataService {
   }
   findByTrackName(title) {
     return http.get(`/track/search/${title}`);
+  }
+  findAllTrackForAlbums(id) {
+    return http.get(`/track/searchalbum/${id}`);
+  }
+  findAllTrackForArtist(title) {
+    return http.get(`/track/searchartist/${title}`);
   }
 }
 export default new TrackDataService();

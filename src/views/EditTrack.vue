@@ -35,7 +35,7 @@
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="updateArtist()"
+                <v-btn color="success" @click="updatetrack()"
                     >Save</v-btn
                 >
             </v-col>
@@ -71,19 +71,18 @@ export default {
 
     updatetrack() {
       var data = {
-        trackName: this.track.trackName,
-        trackAlbum: this.track.trackAlbum
-       
-
+        track_name: this.track.track_name,
+        track_album: this.track.track_album,
+        track_number: this.track.track_number,
+        track_length: this.track.track_length,
+        track_description: this.track.track_description,
+        track_lyrics: this.track.track_lyrics,
+        track_audio: this.track.track_audio
       };
-      console.log(" id to update: "+this.id);
-      console.log(" track name to update: "+this.trackName);
-      console.log(" type to update: "+this.trackType);
-      TrackDataService.update(this.id,data)
+      TrackDataService.updateTrack(this.id,data)
         .then(response => {
-          this.artist.id = response.data.id;
           console.log("add "+response.data);
-          this.$router.push({ name: 'track' });
+          this.$router.push({ name: 'tracks' });
         })
         .catch(e => {
           this.message = e.response.data.message;

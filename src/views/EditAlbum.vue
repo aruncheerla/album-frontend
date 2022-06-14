@@ -84,11 +84,11 @@ export default {
     saveAlbum() {
       console.log(this.album.albumName,'this.album.albumName');
       var data = {
-        albumName: this.album.albumName,
-        albumYear: this.album.albumYear,
-        albumGenre: this.album.albumGenre,
-        albumArtist: this.album.albumArtist,
-        albumDescription: this.album.albumDescription,
+        album_name: this.album.albumName,
+        album_year: this.album.albumYear,
+        album_genre: this.album.albumGenre,
+        album_artist: this.album.albumArtist,
+        album_description: this.album.albumDescription,
         albumImage: this.album.albumImage,
         artistId: this.album.artistId,
         id:this.album.id

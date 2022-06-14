@@ -14,7 +14,7 @@
     <p style="font-size:30px;">Artist : {{ album.albumArtist }}</p>
      <br>
     <p style="font-size:30px;">Description : {{ album.albumDescription }}</p>
-   
+   <br><br>
 
     <v-row>
       <v-col col="8">
@@ -42,21 +42,39 @@
   </v-form>
   </v-col>
   <v-col col="6">
-  </v-col>
+  <br>
+  <p style="font-size:30px;">Track List of Album: {{album.albumName}}</p>
+  <br>
+   <TrackDisplayForView
+    v-for="tutorial in tutorials"
+    :key="tutorial.id"
+    :track="tutorial"
+  /> 
+ </v-col>
   </v-row>
 </template>
 
 <script>
+import ArtistDataService from "../services/ArtistDataService";
 import AlbumDataService from "../services/AlbumDataService";
+import ArtistDisplayForView from '@/components/ArtistDisplayForView.vue';
+import TrackDisplayForView from '@/components/TrackDisplayForView.vue';
+import TrackDataService from "../services/TrackDataService";
 export default {
   name: "edit-album",
   props: ["id"],
   data() {
     return {
       album: Object,
+      albumname: '',
+      tutorials: [],
       message: "Enter data and click save",
     };
   },
+  components: {
+        ArtistDisplayForView,
+        TrackDisplayForView
+    },
   methods: {
     retrieveAlbum() {
       AlbumDataService.getAlbum(this.id)
@@ -64,6 +82,7 @@ export default {
           const { album_name, album_year, album_genre, album_artist, album_description,albumImage } =
             response.data;
           this.previewImage = albumImage;
+          this.albumname=album_name;
           this.album = {
             albumName: album_name,
             albumYear: album_year,
@@ -71,7 +90,7 @@ export default {
             albumArtist: album_artist,
             albumDescription: album_description,
             albumImage: "",
-            artists: ["Ravi","Raj"],
+            artists: [],
           };
         })
         .catch((e) => {
@@ -95,6 +114,25 @@ export default {
           this.$router.push({
             name: "albums",
           });
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
+    retrieveArtists() {
+      ArtistDataService.getAll()
+        .then(response => {
+          this.artists = response.data;
+          
+        })
+        .catch(e => {
+          this.message = e.response.data.message;
+        });
+    },
+    retrieveTutorials() {
+      TrackDataService.findAllTrackForAlbums(this.id)
+        .then((response) => {
+          this.tutorials = response.data;
         })
         .catch((e) => {
           this.message = e.response.data.message;
@@ -124,7 +162,9 @@ export default {
     },
   },
   mounted() {
+    this.retrieveArtists();
     this.retrieveAlbum();
+    this.retrieveTutorials();
   },
 };
 </script>

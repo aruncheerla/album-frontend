@@ -14,9 +14,12 @@
           <br>
     <p style="font-size:30px;">Description : {{ track.track_description }}</p>
             <br>
-    <p style="font-size:30px;">Audio : {{ track.track_audio }}</p>
+          <p style="font-size:30px;"> Audio Link : <a v-bind:href= track.track_audio > Download Audio </a> </p> 
+    
              <br>
-    <p style="font-size:30px;">Lyrics : {{ track.track_lyrics }}</p>
+             <p style="font-size:30px;"> Lyrics Link : <a v-bind:href= track.track_lyrics > Download Lyrics </a> </p> 
+             <br>
+    
         
       
         <v-row justify="center">
@@ -32,8 +35,8 @@
         </v-row>
     </v-form>
     </v-col>
-  <v-col col="6">
-
+   <v-col col="6">
+  <p style="font-size:30px;"></p>
   </v-col>
   </v-row>
 </template>
