@@ -60,16 +60,15 @@ export default {
 
     },
 
-    updateArtist() {
+     updateArtist() {
       var data = {
-        artistName: this.artist.artistName,
-        artistType: this.artist.artistType,
-        artistImage: this.artist.artistImage
+        artist_name: this.artist.artist_name,
+        artist_type: this.artist.artist_type
 
       };
       console.log(" id to update: "+this.id);
-      console.log(" arrist name to update: "+this.artistName);
-      console.log(" type to update: "+this.artistType);
+      console.log(" arrist name to update: "+this.artist_name);
+      console.log(" type to update: "+this.artist_type);
       ArtistDataService.update(this.id,data)
         .then(response => {
           this.artist.id = response.data.id;

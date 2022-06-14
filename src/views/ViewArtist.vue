@@ -8,7 +8,7 @@
     <p style="font-size:30px;">Artist Name : {{ artist.artist_name }}</p>
        <br>
     <p style="font-size:30px;">Artist Type : {{ artist.artist_type }}</p>
-        
+        <br>
         <v-row>
       <v-col col="8">
         <v-file-input
@@ -30,20 +30,35 @@
         </v-row>
     </v-form>
     </v-col>
+    
   <v-col col="6">
+  <br>
+  <p style="font-size:30px;">Track List of Artist {{ artist.artist_name }}</p>
+  <br>
+   <TrackDisplayForView
+    v-for="tutorial in tutorials"
+    :key="tutorial.id"
+    :track="tutorial"
+  /> 
   </v-col>
   </v-row>
 </template>
 <script>
 import ArtistDataService from "../services/ArtistDataService";
+import TrackDisplayForView from '@/components/TrackDisplayForView.vue';
+import TrackDataService from "../services/TrackDataService";
 export default {
   name: "edit-artist",
   props: ['id'],
   data() {
     return {
       artist: {},
+      tutorials: [],
       message: "Enter data and click save"
     };
+  }, 
+  components: {
+        TrackDisplayForView
   },
   methods: {
     retrieveArtist() {
@@ -56,7 +71,15 @@ export default {
         });
 
     },
-
+retrieveTutorials() {
+      TrackDataService.findAllTrackForArtist( 'Rahman')
+        .then((response) => {
+          this.tutorials = response.data;
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
     updateArtist() {
       var data = {
         artistName: this.artist.artistName,
@@ -83,6 +106,7 @@ export default {
   },
     mounted() {
     this.retrieveArtist();
+    this.retrieveTutorials();
   }
 }
 
